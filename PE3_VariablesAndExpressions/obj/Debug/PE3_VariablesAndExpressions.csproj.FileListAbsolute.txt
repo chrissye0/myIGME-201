@@ -1,7 +1,0 @@
-C:\github\myIGME-201\PE3_VariablesAndExpressions\bin\Debug\PE3_VariablesAndExpressions.exe.config
-C:\github\myIGME-201\PE3_VariablesAndExpressions\bin\Debug\PE3_VariablesAndExpressions.exe
-C:\github\myIGME-201\PE3_VariablesAndExpressions\bin\Debug\PE3_VariablesAndExpressions.pdb
-C:\github\myIGME-201\PE3_VariablesAndExpressions\obj\Debug\PE3_VariablesAndExpressions.csproj.AssemblyReference.cache
-C:\github\myIGME-201\PE3_VariablesAndExpressions\obj\Debug\PE3_VariablesAndExpressions.csproj.CoreCompileInputs.cache
-C:\github\myIGME-201\PE3_VariablesAndExpressions\obj\Debug\PE3_VariablesAndExpressions.exe
-C:\github\myIGME-201\PE3_VariablesAndExpressions\obj\Debug\PE3_VariablesAndExpressions.pdb
