@@ -1,13 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace MathQuiz
 {
-    static class Program
+    // Author: Christine Espeleta
+    // Purpose: Create a math quiz game.
+    // Restrictions: N/A
+    static internal class Program
     {
+        // Purpose: Get a name, number of questions, and question difficulty from user. Ask the user math questions and respond depending on their input.
+        // Restrictions: N/A
+        static Timer timeOutTimer;
+        static bool bTimeOut = false;
         static void Main()
         {
             // store user name
@@ -44,6 +54,7 @@ namespace MathQuiz
             string sAgain = "";
 
             bool bValid = false;
+
 
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
@@ -124,85 +135,99 @@ namespace MathQuiz
                     break;
             }
 
-            // ask each question
-            for (nCntr = 0; nCntr < nQuestions; ++nCntr)
+            while (!bTimeOut)
             {
-                // generate a random number between 0 inclusive and 3 exclusive to get the operation
-                nOp = rand.Next(0, 3);
-
-                val1 = rand.Next(0, nMaxRange) + nMaxRange;
-                val2 = rand.Next(0, nMaxRange);
-
-                // if either argument is 0, pick new numbers
-                if (val1 == 0 || val2 == 0)
+                // ask each question
+                for (nCntr = 0; nCntr < nQuestions; ++nCntr)
                 {
-                    --nCntr;
-                    continue;
-                }
+                    // generate a random number between 0 inclusive and 3 exclusive to get the operation
+                    nOp = rand.Next(0, 3);
 
-                // if nOp == 0, then addition
-                // if nOp == 1, then subtraction
-                // else multiplication
-                if (nOp == 0)
-                {
-                    nAnswer = val1 + val2;
-                    sQuestions = $"Question #{nCntr + 1}: {val1} + {val2} => ";
-                }
-                else if (nOp == 1)
-                {
-                    nAnswer = val1 - val2;
-                    sQuestions = $"Question #{nCntr + 1}: {val1} - {val2} => ";
+                    val1 = rand.Next(0, nMaxRange) + nMaxRange;
+                    val2 = rand.Next(0, nMaxRange);
 
-                }
-                else
-                {
-                    nAnswer = val1 * val2;
-                    sQuestions = $"Question #{nCntr + 1}: {val1} * {val2} => ";
-                }
-
-                bValid = false;
-
-                // display the question and prompt for the answer until they enter a valid number
-                do
-                {
-                    Console.Write(sQuestions);
-                    sResponse = Console.ReadLine();
-
-                    try
+                    // if either argument is 0, pick new numbers
+                    if (val1 == 0 || val2 == 0)
                     {
-                        nResponse = int.Parse(sResponse);
-                        bValid = true;
+                        --nCntr;
+                        continue;
                     }
-                    catch
-                    {
-                        Console.WriteLine("please enter an integer.");
-                        bValid = false;
-                    }
-                } while (!bValid);
 
-                // if response == answer, output flashy reward and increment # correct
-                // else output stark answer
-                if (nResponse == nAnswer)
-                {
-                    Console.BackgroundColor = ConsoleColor.Blue;
-                    Console.ForegroundColor = ConsoleColor.Magenta;
-                    Console.WriteLine("Well done, {0}!!", myName);
-                    ++nCorrect;
-                }
-                else
-                {
+                    // if nOp == 0, then addition
+                    // if nOp == 1, then subtraction
+                    // else multiplication
+                    if (nOp == 0)
+                    {
+                        nAnswer = val1 + val2;
+                        sQuestions = $"Question #{nCntr + 1}: {val1} + {val2} => ";
+                    }
+                    else if (nOp == 1)
+                    {
+                        nAnswer = val1 - val2;
+                        sQuestions = $"Question #{nCntr + 1}: {val1} - {val2} => ";
+
+                    }
+                    else
+                    {
+                        nAnswer = val1 * val2;
+                        sQuestions = $"Question #{nCntr + 1}: {val1} * {val2} => ";
+                    }
+
+                    bValid = false;
+
+
+                    // display the question and prompt for the answer until they enter a valid number
+                    do
+                    {
+                        // Start up timer, 5 seconds for each question
+                        timeOutTimer = new Timer(5000);
+                        timeOutTimer.Elapsed += new ElapsedEventHandler(TimesUp);
+                        timeOutTimer.Start();
+                        Console.Write(sQuestions);
+
+                        sResponse = Console.ReadLine();
+
+
+                        timeOutTimer.Stop();
+                        try
+                        {
+                            nResponse = int.Parse(sResponse);
+                            bValid = true;
+                        }
+                        catch
+                        {
+                            Console.WriteLine("please enter an integer.");
+                            bValid = false;
+                        }
+                    } while (!bValid);
+
+
+                    // if response == answer, output flashy reward and increment # correct
+                    // else output stark answer
+                    if (nResponse == nAnswer && !bTimeOut)
+                    {
+                        Console.BackgroundColor = ConsoleColor.Blue;
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        Console.WriteLine("Well done, {0}!!", myName);
+                        ++nCorrect;
+                    }
+                    else
+                    {
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("I'm sorry {0}, the answer is {1}", myName, nAnswer);
+                        bTimeOut = true;
+                    }
+
+                    // restore the screen colors
                     Console.BackgroundColor = ConsoleColor.Black;
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("I'm sorry {0}, the answer is {1}", myName, nAnswer);
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                    Console.WriteLine();
+
                 }
 
-                // restore the screen colors
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.ForegroundColor = ConsoleColor.White;
-
-                Console.WriteLine();
             }
-
             Console.WriteLine();
 
             // output how many they got correct and their score
@@ -228,6 +253,16 @@ namespace MathQuiz
                     break;
                 }
             } while (true);
+        }
+
+        // Purpose: Indicate when the time is up and mark the answer as wrong.
+        // Restrictions: User still has to add an input if the timer runs out.
+        static void TimesUp(object sender, EventArgs e)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Your time is up!");
+            bTimeOut = true;
+            timeOutTimer.Stop();
         }
     }
 }
