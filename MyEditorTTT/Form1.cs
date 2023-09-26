@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
+using System.Threading;
+
 namespace MyEditor
 {
     public partial class Form1 : Form
@@ -32,9 +34,15 @@ namespace MyEditor
             this.mSSansSerifToolStripMenuItem.Click += new EventHandler(MSSansSerifToolStripMenuItem_Click);
             this.timesNewRomanToolStripMenuItem.Click += new EventHandler(TimesNewRomanToolStripMenuItem_Click);
 
+            this.testToolStripButton.Click += new EventHandler(TestToolStripButton_Click);
+
             this.toolStrip.ItemClicked += new ToolStripItemClickedEventHandler(ToolStrip_ItemClicked);
 
             this.richTextBox.SelectionChanged += new EventHandler(RichTextBox_SelectionChanged);
+
+            this.countdownLabel.Visible = false;
+
+            this.timer.Tick += new EventHandler(Timer_Tick);
 
             this.Text = "MyEditor";
         }
@@ -57,6 +65,44 @@ namespace MyEditor
 
             SetSelectionFont(fontStyle, !selectionFont.Bold);
         }
+
+        private void TestToolStripButton_Click(object sender, EventArgs e)
+        {
+            this.timer.Interval = 500;
+
+            this.toolStripProgressBar1.Value = 60;
+
+            this.countdownLabel.Text = "3";
+            this.countdownLabel.Visible = true;
+            this.richTextBox.Visible = false;
+
+            for (int i = 3; i > 0; --i)
+            {
+                this.countdownLabel.Text = i.ToString();
+                this.Refresh();
+                Thread.Sleep(1000);
+            }
+
+            this.countdownLabel.Visible = false;
+            this.richTextBox.Visible = true;
+
+            this.timer.Start();
+            richTextBox.Clear();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            --this.toolStripProgressBar1.Value;
+            if (this.toolStripProgressBar1.Value == 0)
+            {
+                this.timer.Stop();
+
+                string performance = "Congratulations! You typed " + Math.Round(this.richTextBox.TextLength / 30.0, 2) + " letters per second!";
+
+                MessageBox.Show(performance);
+            }
+        }
+
         private void ItalicsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FontStyle fontStyle = FontStyle.Italic;
