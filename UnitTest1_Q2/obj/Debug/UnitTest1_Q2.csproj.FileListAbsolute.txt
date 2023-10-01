@@ -1,0 +1,7 @@
+C:\Users\Christine\source\repos\myIGME-201\UnitTest1_Q2\bin\Debug\UnitTest1_Q2.exe.config
+C:\Users\Christine\source\repos\myIGME-201\UnitTest1_Q2\bin\Debug\UnitTest1_Q2.exe
+C:\Users\Christine\source\repos\myIGME-201\UnitTest1_Q2\bin\Debug\UnitTest1_Q2.pdb
+C:\Users\Christine\source\repos\myIGME-201\UnitTest1_Q2\obj\Debug\UnitTest1_Q2.csproj.AssemblyReference.cache
+C:\Users\Christine\source\repos\myIGME-201\UnitTest1_Q2\obj\Debug\UnitTest1_Q2.csproj.CoreCompileInputs.cache
+C:\Users\Christine\source\repos\myIGME-201\UnitTest1_Q2\obj\Debug\UnitTest1_Q2.exe
+C:\Users\Christine\source\repos\myIGME-201\UnitTest1_Q2\obj\Debug\UnitTest1_Q2.pdb
