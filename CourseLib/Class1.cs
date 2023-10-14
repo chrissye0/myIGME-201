@@ -103,8 +103,8 @@ namespace CourseLib
     }
     public class Course(string courseCode, string description)
     {
-        public string courseCode;
-        public string description;
+        public string courseCode = courseCode;
+        public string description = description;
         public string teacherEmail;
         public Schedule schedule;
     }
