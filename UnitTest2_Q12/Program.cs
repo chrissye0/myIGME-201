@@ -26,7 +26,7 @@ namespace UnitTest2_Q12
             foreach (KeyValuePair<string, DateTime> valuePair in friendBirthdays)
             {
                 Console.WriteLine($"Person: {valuePair.Key} \nBirthday: {valuePair.Value.ToString("MM/dd/yyyy")}");
-            }   
+            }
         }
     }
 }
