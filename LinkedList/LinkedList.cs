@@ -203,7 +203,7 @@ namespace LinkedList
             // "the", "fox", "jumped", "over", "the", "dog"
             LinkedList<object> linkedList = null;
             LinkedListNode<object> linkedListNode;
-            string[] sentence = {"the", "fox", "jumped", "over", "the", "dog"};
+            string[] sentence = { "the", "fox", "jumped", "over", "the", "dog" };
 
             // 2. Your code here
             linkedList = new LinkedList<object>(sentence);
@@ -232,7 +232,7 @@ namespace LinkedList
             // Because I'm sad Clap along if you feel like sadness is the truth sad
             LinkedList<object> linkedList = null;
             LinkedListNode<object> linkedListNode;
-            string[] s = {"Because", "I'm", "sad", "Clap", "along", "if", "you", "feel", "like", "a", "room", "without", "a", "roof", "Because", "I'm", "sad", "Clap", "along", "if", "you", "feel", "like", "sadness", "is", "the", "truth", "sad"};
+            string[] s = { "Because", "I'm", "sad", "Clap", "along", "if", "you", "feel", "like", "a", "room", "without", "a", "roof", "Because", "I'm", "sad", "Clap", "along", "if", "you", "feel", "like", "sadness", "is", "the", "truth", "sad" };
 
             // 2. Your code here
             linkedList = new LinkedList<object>(s);
@@ -257,7 +257,7 @@ namespace LinkedList
                     linkedListNode.Value = "happiness";
                 }
             }
-           
+
             // 5. then call the visualizer
             VisualizeLinkedList visualizeLinkedList = new VisualizeLinkedList(linkedList);
         }
@@ -269,7 +269,7 @@ namespace LinkedList
             LinkedList<object> linkedList = null;
             LinkedListNode<object> linkedListNode1;
             LinkedListNode<object> linkedListNode2;
-            string[] s = {"The", "Spain", "in", "rain", "falls", "plain", "on", "the", "mainly"};
+            string[] s = { "The", "Spain", "in", "rain", "falls", "plain", "on", "the", "mainly" };
 
             // 2. Your code here
             linkedList = new LinkedList<object>(s);
@@ -289,7 +289,7 @@ namespace LinkedList
             linkedListNode1 = linkedList.Find("rain");
             linkedListNode2 = linkedList.Find("in");
             linkedList.Remove(linkedListNode1);
-            linkedList.AddBefore(linkedListNode2 , linkedListNode1);
+            linkedList.AddBefore(linkedListNode2, linkedListNode1);
             // "The rain in Spain falls plain on the mainly"
 
             linkedListNode1 = linkedList.Find("falls");
